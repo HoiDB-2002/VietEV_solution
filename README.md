@@ -1,5 +1,10 @@
 # VietEV_Solution
 
+This repository include three parts:
+mainArduino include firmware of arduino with 3.5 TFT LCD
+mainESP_FreeRTOS include firmware of esp32
+dat.csv include data of charging stations
+
 Hardware requirement:
 ESP32 Wroom
 Module Ethernet W5500 connect to SPI of ESP32 (CS pin = P5)
