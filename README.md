@@ -32,29 +32,7 @@ Prerequisites
 
 Arduino IDE or PlatformIO: Ensure that you have the latest version installed.
 
-ESP32 Board Package: Install the ESP32 board package in Arduino IDE or PlatformIO.
-
-
-Required Libraries:
-
-WiFi.h
-
-PubSubClient.h for MQTT communication
-
-Wire.h for I2C communication
-
-SPI.h for SPI communication
-
-
-Setup
-
-Clone the Repository:
-
-sh
-
-Sao chép mã
-
-git clone https://github.com/yourusername/VietEV_Firmware.git
+ESP32 Board Package: Install the ESP32 board package in Arduino IDE or2002/VietEV_Firmware.git
 
 cd VietEV_Firmware
 
