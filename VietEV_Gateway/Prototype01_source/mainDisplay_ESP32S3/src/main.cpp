@@ -4,7 +4,7 @@
 #include <myDisplayScreen.h>
 myDisplayScreen ds;
 
-HardwareSerial mySerial(1);
+// HardwareSerial mySerial(1);
 
 int nDrawn = drawFasle;
 int nState = stWelcome;
@@ -32,15 +32,15 @@ void setup(void)
 
 void loop()
 {
-    if (Serial.available() > 0)
-    {
-        String str = Serial.readStringUntil('@');
-        mySerial.print(str);
-    }
+    // if (Serial.available() > 0)
+    // {
+    //     String str = Serial.readStringUntil('@');
+    //     mySerial.print(str);
+    // }
 
-    if (mySerial.available() > 0)
-    {
-        String str = mySerial.readStringUntil('@');
-        Serial.print(str);
-    }
+    // if (mySerial.available() > 0)
+    // {
+    //     String str = mySerial.readStringUntil('@');
+    //     Serial.print(str);
+    // }
 }
