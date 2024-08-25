@@ -5,10 +5,8 @@ VietEV solution is an intergrated IoT solution for charging station system.
 This solution is studied and developed by VietEV team: Dao Ba Hoi, Phan Thi Linh Ngan
 
 This repository includes the following components and directories:
-
-VietEV_data include list of charging station collected by VietEV team
-
-VietEV_gateway is an open-source of gateway (two part: mainESP for control center unit - esp32, and display - esp32se for prototype 1 and arduino for prototype 2)
++ VietEV_data include list of charging station collected by VietEV team
++ VietEV_gateway is an open-source of gateway (two part: mainESP for control center unit - esp32, and display - esp32se for prototype 1 and arduino for prototype 2)
 
 
 Hardware requirement: ESP32 Wroom, Module Ethernet W5500 connect to SPI of ESP32 (CS pin = P5), Module CAN MCP2515 connect to SPI of ESP32 (CS pin = P4), Module RS232/RS422/RS485 connect to UART2 of ESP32, Module relay connect to GPIO 14, Display (3.5 tft + arduino) connect to UART1 of ESP32, Keypad + module I/O expander (PCF8574) connect to I2C of ESP32
