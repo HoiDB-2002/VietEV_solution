@@ -32,7 +32,29 @@ Prerequisites
 
 Arduino IDE or PlatformIO: Ensure that you have the latest version installed.
 
-ESP32 Board Package: Install the ESP32 board package in Arduino IDE or2002/VietEV_Firmware.git
+ESP32 Board Package: Install the ESP32 board package in Arduino IDE or PlatformIO.
+
+
+Required Libraries:
+
+WiFi.h
+
+PubSubClient.h for MQTT communication
+
+Wire.h for I2C communication
+
+SPI.h for SPI communication
+
+
+Setup
+
+Clone the Repository:
+
+sh
+
+Sao chép mã
+
+git clone https://github.com/HoiDB-2002/VietEV_Firmware.git
 
 cd VietEV_Firmware
 
@@ -46,7 +68,3 @@ Open the config.h file and update the Wi-Fi credentials, MQTT server settings, a
 Upload the Firmware:
 
 Connect the VietEV Gateway to your computer via USB.
-Open the project in Arduino IDE or PlatformIO (need include <Arduino.h>).
-Select the correct board (ESP32 Dev Module) and the appropriate port.
-Upload the firmware to the ESP32.
-
