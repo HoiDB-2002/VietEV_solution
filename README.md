@@ -1,12 +1,14 @@
 # VietEV_Solution
 
-This repository include three parts:
+VietEV solution is an intergrated IoT solution for charging station system.
 
-mainArduino include firmware of arduino with 3.5 TFT LCD
+This solution is studied and developed by VietEV team: Dao Ba Hoi, Phan Thi Linh Ngan
 
-mainESP_FreeRTOS include firmware of esp32
+This repository includes the following components and directories:
 
-dat.csv include data of charging stations
+VietEV_data include list of charging station collected by VietEV team
+
+VietEV_gateway is an open-source of gateway (two part: mainESP for control center unit - esp32, and display - esp32se for prototype 1 and arduino for prototype 2)
 
 
 Hardware requirement:
@@ -54,9 +56,9 @@ sh
 
 Sao chép mã
 
-git clone https://github.com/HoiDB-2002/VietEV_Firmware.git
+git clone https://github.com/HoiDB-2002/VietEV_solution/VietEV_gateway
 
-cd VietEV_Firmware
+cd VietEV_Firmware/VietEV_solution/VietEV_gateway
 
 
 Configure the Firmware:
