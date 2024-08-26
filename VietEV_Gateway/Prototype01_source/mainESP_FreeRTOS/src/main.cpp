@@ -181,7 +181,7 @@ void taskMQTT(void *pvParameters)
     if (millis() - ulLastMsgTime > 15000)
     {
       ulLastMsgTime = millis();
-      mqttConnect.sendMessageToServer(topic_publish, strMessageSentToServer);
+      mqttConnect.sendMessageToServer(topic_publish, ("[" + String(deviceName) + "] " + String(strMessageSentToServer)));
       funcSerialPrintln("Message sent [" + String(topic_publish) + "] " + String(strMessageSentToServer));
     }
     vTaskDelay(pdMS_TO_TICKS(100));

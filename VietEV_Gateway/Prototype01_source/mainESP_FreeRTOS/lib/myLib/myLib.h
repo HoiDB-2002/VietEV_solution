@@ -11,9 +11,9 @@
 #define topic_subscribe_publichStatus   "testtopic/publichStatus"
 #define topic_subscribe_screen          "testtopic/screen"
 #define topic_publish                   "testtopic/sentData"
-#define strMessageSentToServer          "B0:A7:32:DB:41:88"
-#define esp32MACAddress                 "B0:A7:32:DB:41:88"
-#define deviceName                      "box2"
+#define strMessageSentToServer          "c4:de:e2:1e:3c:a4"
+#define esp32MACAddress                 "c4:de:e2:1e:3c:a4"
+#define deviceName                      "box1"
 
 // Define GPIO device
 #define relayPin                        12

@@ -6,9 +6,8 @@
 class myDisplayScreen
 {
 private:
-// Do not change this
-// ***********************************************************
-
+    // Do not change this
+    // ***********************************************************
 
 #if defined(DISPLAY_DEV_KIT)
     Arduino_GFX *gfx = create_default_Arduino_GFX();
@@ -29,6 +28,7 @@ private:
 
 #endif
     // ******************************************************************************
+    int nSpaceSurround = 5;
 
 public:
     myDisplayScreen();
@@ -54,6 +54,21 @@ public:
 
     // Show all received information from software serial
     void displayScreen_Debugger();
-
-    void drawQRCode(QRCode *qrcode, int x, int y, int pixelSize);
+    
+    void showCharging();
+    // void drawTitleBox(string strTitle);
+    void drawQRCodeBox();
+    void drawQRCode(String qrData);
+    void drawBattery(int nPinPercent);
+    void drawLightning(int nVolteNum, int nAmpeNum);
+    void drawClock(int nTimeCharge);
+    void drawPower(int nPower);
+    void showButtonPlay();
+    void showButtonPause();
+    void showButtonEnd();
+    void drawDataUpdate(sPowerInfor sData);
+    String showTime(unsigned int nTime);
+    void drawTitleBox(String strTitle);
+    // void drawQRCode(QRCode *qrcode, int x, int y, int pixelSize);
+    void drawRectEmpty(int nRectStartWidth, int nRectStartHeight, int nRectWidth, int nRectHeight, int nBorderSize, int nBorderColor, int nBoxColor);
 };

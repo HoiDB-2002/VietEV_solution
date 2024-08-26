@@ -1,7 +1,7 @@
 #include "myUpdateFirmwareOTA.h"
 
-const char* host = "VietEV";
-const char* ssid = "H&T";
+const char* host = "VietEVGatewayPrototype1";
+const char* ssid = "wifiVietEV";
 const char* password = "a1234567890";
 
 WebServer myUpdateFirmwareOTA::server(80);
@@ -89,10 +89,10 @@ const char* myUpdateFirmwareOTA::loginIndex =
   "<table width='20%' bgcolor='A09F9F' align='center'>"
   "<tr>"
   "<td colspan=2>"
-  "<center><font size=4><b>ESP32 Login Page V1.21</b></font></center>"
-  "<center><font size=3><b>Ampe: ........ </b></font></center>"
-  "<center><font size=3><b>Vol: ........ </b></font></center>"
-  "<center><font size=3><b>Power: .......</b></font></center>"
+  "<center><font size=4><b>ESP32 Login Page V1.23</b></font></center>"
+//   "<center><font size=3><b>Ampe: ........ </b></font></center>"
+//   "<center><font size=3><b>Vol: ........ </b></font></center>"
+//   "<center><font size=3><b>Power: .......</b></font></center>"
   "<br>"
   "</td>"
   "<br>"

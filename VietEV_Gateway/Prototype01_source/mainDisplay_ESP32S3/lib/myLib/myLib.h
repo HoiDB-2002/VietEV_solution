@@ -4,10 +4,15 @@
 
 #define GFX_BL                  DF_GFX_BL // default backlight pin
 #define TFT_BL                  2
-// #define RX1                     17
-// #define TX1                     18
+#define RX1                     17
+#define TX1                     18
 
-// Định nghĩa các màu
+// Width of screen
+#define size_WidthScreen        480
+// Height of screen
+#define size_HeightScreen       272
+
+// ------------------------ Define color ----------------------------------
 #define	color_Black             0x0000
 #define	color_Blue              0x001F
 #define	color_Red               0xF800
