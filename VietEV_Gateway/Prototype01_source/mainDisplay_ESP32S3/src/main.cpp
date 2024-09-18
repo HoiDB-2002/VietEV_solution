@@ -7,7 +7,7 @@ myDisplayScreen ds;
 HardwareSerial mySerial(1);
 
 int nDrawn = drawFasle;
-int nState = stChargingEVCompleted;
+int nState = stDisplayOTP;
 String strQRCode = "324689";
 
 // Get data Power Information

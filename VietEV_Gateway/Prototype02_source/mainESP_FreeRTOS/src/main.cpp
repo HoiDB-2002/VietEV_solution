@@ -210,67 +210,71 @@ void taskManageProgram(void *pvParameters)
       if (myMessage.parts[pDeviceName] == String(deviceName))
       {
         funcSerialPrintln("[" + strTopic + "] " + strMessage);
-        if (nState == stateReadyToChargeEV)
+        // if (nState == stateReadyToChargeEV)
+        // {
+        if (strTopic == topic_subscribe_publichStatus)
         {
-          if (strTopic == topic_subscribe_publichStatus)
+          if ((myMessage.parts[1] == "relayOn"))
           {
-            if (myMessage.parts[1] == "relayOn")
-            {
-              funcSerialPrintln("Relay is on");
-              digitalWrite(relayPin, HIGH);
-              serialScreen.print("screen2@");
-              pzem.resetEnergy();
-              nStateGetPowerInfor = On;
-            }
-            else if (myMessage.parts[1] == "relayOff")
-            {
-              funcSerialPrintln("Relay is off");
-              nStateGetPowerInfor = Off;
-              digitalWrite(relayPin, LOW);
-              serialScreen.print("screen3@");
-            }
-            else
-            {
-              funcSendComboMessage(String(deviceName) + "|" + "Command not found");
-            }
+            nState = stateChargingEV;
+            funcSerialPrintln("Relay is on");
+            digitalWrite(relayPin, HIGH);
+            pzem.resetEnergy();
+            vTaskDelay(pdMS_TO_TICKS(100));
+            serialScreen.print("screen2@");
+            nStateGetPowerInfor = On;
           }
-          else if (strTopic == topic_subscribe_screen)
+          else if ((myMessage.parts[1] == "relayOff"))
           {
-            if (myMessage.parts[1] == "screen1@")
-            {
-              // serialScreen.print("screen1@");
-              digitalWrite(relayPin, LOW);
-              nStateGetPowerInfor = Off;
-            }
-            else if (myMessage.parts[1] == "screen2@")
-            {
-              serialScreen.print("screen2@");
-              digitalWrite(relayPin, HIGH);
-              nStateGetPowerInfor = On;
-            }
-            else if (myMessage.parts[1] == "screen3@")
-            {
-              serialScreen.print("screen3@");
-              digitalWrite(relayPin, LOW);
-              nStateGetPowerInfor = Off;
-            }
-            else
-            {
-              nStateGetPowerInfor = Off;
-              serialScreen.print("screen0@");
-            }
-          }
-          else if (strTopic == topic_subscribe_subOTP)
-          {
+            nState = stateChargingEVCompleted;
+            funcSerialPrintln("Relay is off");
             nStateGetPowerInfor = Off;
-            serialScreen.print(myMessage.parts[1]);
             digitalWrite(relayPin, LOW);
+            serialScreen.print("screen3@");
           }
           else
           {
-            funcSendComboMessage(String(deviceName) + "|" + "Topic not found");
+            funcSendComboMessage(String(deviceName) + "|" + "Command not found");
           }
         }
+        else if (strTopic == topic_subscribe_screen)
+        {
+          if ((myMessage.parts[1] == "screen1@") && (nState != stateChargingEV))
+          {
+            // serialScreen.print("screen1@");
+            digitalWrite(relayPin, LOW);
+            nStateGetPowerInfor = Off;
+          }
+          else if (myMessage.parts[1] == "screen2@")
+          {
+            serialScreen.print("screen2@");
+            digitalWrite(relayPin, HIGH);
+            nStateGetPowerInfor = On;
+          }
+          else if (myMessage.parts[1] == "screen3@")
+          {
+            serialScreen.print("screen3@");
+            digitalWrite(relayPin, LOW);
+            nStateGetPowerInfor = Off;
+          }
+          else
+          {
+            // nStateGetPowerInfor = Off;
+            // serialScreen.print("screen0@");
+          }
+        }
+        else if ((strTopic == topic_subscribe_subOTP) && (nState != stateChargingEV))
+        {
+          nState = stateWaitingToChargeEV;
+          nStateGetPowerInfor = Off;
+          serialScreen.print(myMessage.parts[1]);
+          digitalWrite(relayPin, LOW);
+        }
+        else
+        {
+          funcSendComboMessage(String(deviceName) + "|" + "Topic not found");
+        }
+        // }
       }
     }
   }
@@ -317,49 +321,48 @@ void taskGetPowerInfor(void *pvParameters)
       sPowerInfor1.fFrequency = pzem.frequency();
 
       String strMessage = "PowerInfor |";
-      if (isnan(sPowerInfor1.fVoltage))
+      if (isnan(sPowerInfor1.fVoltage) || (sPowerInfor1.fVoltage > 800))
       {
         strMessage += "Vol: Error| ";
       }
       else
       {
         strMessage += "Vol: " + String(sPowerInfor1.fVoltage, 2) + "V| ";
-      }
+        if (isnan(sPowerInfor1.fCurrent))
+        {
+          strMessage += "Cur: Error| ";
+        }
+        else
+        {
+          strMessage += "Cur: " + String(sPowerInfor1.fCurrent, 2) + "A| ";
+        }
 
-      if (isnan(sPowerInfor1.fCurrent))
-      {
-        strMessage += "Cur: Error| ";
-      }
-      else
-      {
-        strMessage += "Cur: " + String(sPowerInfor1.fCurrent, 2) + "A| ";
-      }
+        if (isnan(sPowerInfor1.fPower))
+        {
+          strMessage += "Pow: Error| ";
+        }
+        else
+        {
+          strMessage += "Pow: " + String(sPowerInfor1.fPower, 2) + "W| ";
+        }
 
-      if (isnan(sPowerInfor1.fPower))
-      {
-        strMessage += "Pow: Error| ";
-      }
-      else
-      {
-        strMessage += "Pow: " + String(sPowerInfor1.fPower, 2) + "W| ";
-      }
+        if (isnan(sPowerInfor1.fEnergy))
+        {
+          strMessage += "Ene: Error| ";
+        }
+        else
+        {
+          strMessage += "Ene: " + String(sPowerInfor1.fEnergy, 2) + "Wh| ";
+        }
 
-      if (isnan(sPowerInfor1.fEnergy))
-      {
-        strMessage += "Ene: Error| ";
-      }
-      else
-      {
-        strMessage += "Ene: " + String(sPowerInfor1.fEnergy, 2) + "Wh| ";
-      }
-
-      if (isnan(sPowerInfor1.fFrequency))
-      {
-        strMessage += "Fre: Error| ";
-      }
-      else
-      {
-        strMessage += "Fre: " + String(sPowerInfor1.fFrequency, 2) + "HZ| ";
+        if (isnan(sPowerInfor1.fFrequency))
+        {
+          strMessage += "Fre: Error| ";
+        }
+        else
+        {
+          strMessage += "Fre: " + String(sPowerInfor1.fFrequency, 2) + "HZ| ";
+        }
       }
 
       strMessage += "@";
@@ -390,26 +393,26 @@ void taskKeypad(void *pvParameters)
 
       switch (nCode)
       {
-        case btOne:
-        {
-          funcSendComboMessage("screen1@");
-          break;
-        }
-        case btTwo:
-        {
-          funcSendComboMessage("screen2@");
-          break;
-        }
-        case btThree:
-        {
-          funcSendComboMessage("screen3@");
-          break;
-        }
-        default:
-        {
-          funcSendComboMessage("screen0@");
-          break;
-        }
+      case btOne:
+      {
+        funcSendComboMessage("screen1@");
+        break;
+      }
+      case btTwo:
+      {
+        funcSendComboMessage("screen2@");
+        break;
+      }
+      case btThree:
+      {
+        funcSendComboMessage("screen3@");
+        break;
+      }
+      default:
+      {
+        funcSendComboMessage("screen0@");
+        break;
+      }
       }
 
       nLastKey = nCode;

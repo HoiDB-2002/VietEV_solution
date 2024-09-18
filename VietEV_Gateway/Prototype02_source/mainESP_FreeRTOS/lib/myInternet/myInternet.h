@@ -26,7 +26,7 @@ private:
     // Define Wifi information
     // const char* ssid = "H&T";
     // const char* password = "a1234567890";
-    String ssid = "H&T";
+    String ssid = "wifiVietEV";
     String password = "a1234567890";
     EthernetClient ethernetClient;
     Client* client; // Generic Client pointer

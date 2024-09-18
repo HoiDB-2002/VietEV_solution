@@ -140,9 +140,9 @@ void myDisplayScreen::drawRectEmpty(int nRectStartWidth, int nRectStartHeight, i
 void myDisplayScreen::drawQRCodeBox()
 {
     int nBoxLocationWidth = 270;
-    int nBoxLocationHeight = 100;
-    int nBoxWidth = 150;
-    int nBoxHeight = 150;
+    int nBoxLocationHeight = 80;
+    int nBoxWidth = 170;
+    int nBoxHeight = 170;
     String strMessage = "Scan me";
 
     // Vẽ vòng vuông đen
@@ -159,7 +159,7 @@ void myDisplayScreen::drawQRCodeBox()
     gfx->setTextColor(color_White); // Đặt màu văn bản là trắng
     gfx->setTextSize(2);            // Đặt kích thước văn bản là 2
     // In dòng chữ "Nhập mã OTP của bạn hoặc quét mã bên cạnh" vào giữa hình chữ nhật
-    gfx->setCursor(325, 93);
+    gfx->setCursor(315, 72);
     gfx->println(strMessage);
 }
 
@@ -176,7 +176,7 @@ void myDisplayScreen::drawQRCode(String qrData)
     int qrSize = qrcode.size;
 
     int qrStartX = 290;
-    int qrStartY = 120;
+    int qrStartY = 100;
 
     // Vẽ mã QR
     for (int y = 0; y < qrSize; y++)

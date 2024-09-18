@@ -13,7 +13,7 @@
 #define topic_publish                   "testtopic/sentData"
 #define strMessageSentToServer          "c4:de:e2:1e:3c:a4"
 #define esp32MACAddress                 "c4:de:e2:1e:3c:a4"
-#define deviceName                      "box1"
+#define deviceName                      "box3"
 
 // Define GPIO device
 #define relayPin                        12

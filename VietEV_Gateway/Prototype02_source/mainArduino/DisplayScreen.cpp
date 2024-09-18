@@ -4,16 +4,7 @@ DisplayScreen::DisplayScreen() {}
 
 void DisplayScreen::displayScreenTest(){
   tft.fillScreen(color_White);
-  //show batery percent
-  // for (int i = 10; i <= 50; i++) {
-  //   drawPowerUpdate(i);
-  //   delay(1000);
-  // }
-  
 
-  // draw_image(207, 107, 25, 39, gImage_clock);
-  // tft.drawBitmap(207, 107, gImage_clock, 25, 39, 0xFFFF);
-  // tft.drawRGBBitmap(207, 107, gImage_clock, 25, 39);
 }
 
 void DisplayScreen::initLCD(){
@@ -74,12 +65,14 @@ void DisplayScreen::initLCD(){
 void DisplayScreen::displayScreen_Welcome()
 {
   tft.fillScreen(color_Blue);
-  tft.fillRect(10, 10, 460, 300, color_White); 
+  tft.fillRect(5, 5, 470, 310, color_White); 
   tft.setTextColor(color_Blue); // Đặt màu văn bản là trắng
   tft.setTextSize(4); // Đặt kích thước văn bản là 2
   // In dòng chữ "Nhập mã OTP của bạn hoặc quét mã bên cạnh" vào giữa hình chữ nhật
-  tft.setCursor(60, 150); 
-  tft.println("Welcome to EVCS");  
+  tft.setCursor(70, 130); 
+  tft.println("Welcome VietEV"); 
+  tft.setCursor(18, 170); 
+  tft.println("Gateway Prototype 2");  
 }
 
 void DisplayScreen::displayScreen_ScanOTP()
@@ -128,8 +121,8 @@ void DisplayScreen::displayScreen_CompletedCharging(){
   tft.setCursor(150, 30); 
   tft.println("COMPLETE CHARGING");
 
-  drawClock(24);
-  drawPower(125);
+  // drawClock(24);
+  // drawPower(125);
   showButtonEnd();
 }
 
@@ -191,11 +184,11 @@ void DisplayScreen::drawQRCode(String qrData) {
 
 void DisplayScreen::showCharging() {
   drawBattery(99);
-  drawLightning(250, 30);
-  drawClock(24);
-  drawPower(125);
-  showButtonPlay();
-  showButtonPause();
+  // drawLightning(250, 30);
+  // drawClock(24);
+  // drawPower(125);
+  // showButtonPlay();
+  // showButtonPause();
 }
 
 void DisplayScreen::drawBattery(int nPinPercent) {
@@ -283,9 +276,10 @@ void DisplayScreen::drawDataUpdate(sPowerInfor sData){
 
   // Nếu giá trị Power trước đó khác với giá trị hiện tại thì xóa giá trị cũ
   if (previousPower != 0) {
-    tft.fillRect(250, 213, 90, 15, color_White); // Energy box
-    tft.fillRect(125, 233, 90, 15, color_White); // Current box
     tft.fillRect(125, 213, 90, 15, color_White); // Voltage box
+    tft.fillRect(125, 233, 90, 15, color_White); // Current box
+    tft.fillRect(125, 253, 90, 15, color_White); // Power box
+    tft.fillRect(250, 213, 90, 15, color_White); // Energy box
     tft.fillRect(250, 113, 90, 15, color_White); // Time box
   }
 
@@ -296,12 +290,19 @@ void DisplayScreen::drawDataUpdate(sPowerInfor sData){
   tft.setCursor(125, 213);  
   tft.print(sData.fVoltage);
   tft.print("V");
+
   tft.setCursor(125, 233); 
   tft.print(sData.fCurrent);
   tft.print("A");
+
+  tft.setCursor(125, 253);  
+  tft.print(sData.fPower);
+  tft.print("W");
+
   tft.setCursor(250, 213);  
   tft.print(sData.fEnergy);
-  tft.print("Wh");
+  tft.print("kWh");
+
   tft.setCursor(250, 113);
   String strTime = showTime(previousPower);
   tft.print(strTime);
@@ -374,8 +375,7 @@ String DisplayScreen::showTime(unsigned int nTime)
 
   // Tạo chuỗi thời gian với định dạng hh:mm:ss
   String strTime = String(nTime / 3600) + ":" + 
-                   ((nTime % 3600) / 60 < 10 ? "0" : "") + String((nTime % 3600) / 60) + ":" +
-                   (nTime % 60 < 10 ? "0" : "") + String(nTime % 60);
+                   ((nTime % 3600) / 60 < 10 ? "0" : "") + String((nTime % 3600) / 60);
 
   return strTime;
 }
